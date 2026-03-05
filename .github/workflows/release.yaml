@@ -12,7 +12,7 @@ jobs:
       # workaround as there is no way to get the Release name or just the tag name by itself
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
         id: extract_tag
       - name: Build Lab Image
         env:
