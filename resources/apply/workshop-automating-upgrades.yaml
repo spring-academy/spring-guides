@@ -17,7 +17,7 @@ spec:
       - path: exercises
         git:
           url: https://github.com/spring-academy/course-spring-boot-2-5-to-2-7-upgrade-code
-          ref: automation-upgrade
+          ref: main
         newRootPath: .
   request:
     parameters:
