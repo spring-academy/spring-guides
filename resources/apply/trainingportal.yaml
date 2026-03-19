@@ -35,9 +35,13 @@ spec:
       trackingId: "${ANALYTICS_CLARITY_ID}"
   workshops:
     - name: spring-academy-guides-upgrade-from-spring-boot-2x-to-3x
+      reserved: 0
     - name: spring-academy-guides-upgrading-boot-jdk-8-to-17
     - name: spring-academy-guides-upgrade-boot-2x-to-3x-in-practice
+      reserved: 0
     - name: spring-academy-guides-workshop-automating-upgrades
       expires: 2h
+      reserved: 0
     - name: spr-guides-spring-modulith-deep-dive
       expires: 10h
+      reserved: 0
