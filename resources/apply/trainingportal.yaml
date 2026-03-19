@@ -8,11 +8,11 @@ spec:
     updates:
       workshop: true
     sessions:
-      maximum: 60
+      maximum: 30
     workshop:
       defaults:
         capacity: 1
-        reserved: 0
+        reserved: ${TRAINING_PORTAL_RESERVED}
         expires: 60m
         orphaned: 5m
     theme:
