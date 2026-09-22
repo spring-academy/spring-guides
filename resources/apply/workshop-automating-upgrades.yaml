@@ -10,7 +10,7 @@ spec:
     files:
       - http:
           # the name of the tar.gz here should make the workshop name
-          url: "$(ingress_protocol)://$(workshop_namespace)-files.$(ingress_domain)/spring-academy-guides-workshop-automating-upgrades.tar.gz"
+          url: "$(ingress_protocol)://$(assets_repository)/spring-academy-guides-workshop-automating-upgrades.tar.gz"
       - path: .local/share/code-server
         image:
           url: ghcr.io/spring-academy/vscode-java-tools-$(platform_arch)-files:0.25.14
@@ -39,59 +39,11 @@ spec:
       editor:
         enabled: true
   environment:
-    objects:
-    - apiVersion: v1
-      kind: Service
-      metadata:
-        name: $(workshop_namespace)-files
-        namespace: $(workshop_namespace)
-      spec:
-        type: ClusterIP
-        ports:
-        - port: 80
-          protocol: TCP
-          targetPort: 8080
-        selector:
-          deployment: files
-    - apiVersion: networking.k8s.io/v1
-      kind: Ingress
-      metadata:
-        name: $(workshop_namespace)-files
-        namespace: $(workshop_namespace)
-      spec:
-        tls:
-        - hosts:
-            - $(workshop_namespace)-files.$(ingress_domain)
-          secretName: $(ingress_secret)
-        rules:
-        - host: $(workshop_namespace)-files.$(ingress_domain)
-          http:
-            paths:
-            - backend:
-                service:
-                  name: $(workshop_namespace)-files
-                  port:
-                    number: 80
-              pathType: Prefix
-              path: /
-    - apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: $(workshop_namespace)-files
-        namespace: $(workshop_namespace)
-      spec:
-        serviceAccountName: $(service_account)
-        replicas: 1
-        selector:
-          matchLabels:
-            deployment: files
-        strategy:
-          type: Recreate
-        template:
-          metadata:
-            labels:
-              deployment: files
-          spec:
-            containers:
-            - name: files
-              image: ghcr.io/spring-academy/spring-guides:${VERSION}
+    assets:
+      memory: 0Mi
+      ingress:
+        enabled: true
+      files:
+        - image:
+            url: ghcr.io/spring-academy/spring-guides:${VERSION}
+          newRootPath: usr/share/nginx/html
