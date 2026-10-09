@@ -26,6 +26,9 @@ spec:
     - name: USER_EMAIL
       value: "somebody@unknown.domain"
   session:
+    env:
+    - name: LAB_VERSION
+      value: "${VERSION}"
     namespaces:
       budget: medium
     applications:
